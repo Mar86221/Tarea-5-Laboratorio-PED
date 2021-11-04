@@ -23,7 +23,7 @@ cliente solidatos(void)
     cin>> C.raza;
     cin.ignore();
     cout<<"Peso de la mascota (en kilogramos): ";
-    cin>> C.peso;
+    cin>> C.peso; 
     cout<<"Edad de la mascota: ";
     cin>> C.edad;
     return C;
@@ -31,7 +31,7 @@ cliente solidatos(void)
 
 void mostrardata(cliente C)
 {
-    cout<<" -#"<<C.ID<<endl;
+    cout<<"\n -#"<<C.ID<<endl;
     cout<<" --Nombre cliente: "<<C.nombre<<endl;
     cout<<" --Raza: "<<C.raza<<endl;
     cout<<" --Peso: "<<C.peso<<" kg"<<endl;
@@ -57,11 +57,8 @@ class ListaCircSimple
         ~ListaCircSimple();
         void eliminarlistcircularrec(nodo *);
         void insInicio(cl);
-        //void insertaNodo();
-        //void insOrdenAscendente(int);
-        //void mostrarLista();
         void mostrarlistaiter(void);
-        void eliminarNodo(cl);
+        bool borrado(cl);
         bool empty(void);
 
 };
@@ -132,31 +129,43 @@ bool ListaCircSimple::empty(void)
     return pInicio==NULL;
 }
 
-void ListaCircSimple::eliminarNodo(cl datoB)
+bool ListaCircSimple::borrado(cl datoB)
+
 {
-   nodo *saltarin= pInicio;
-    do
-    {
-        if (!pInicio)
-        {
-            cout<<"\n No hay nodos \n"<<endl;
-        }else{
-            while (saltarin&&(saltarin->dato).nombre.compare(datoB.nombre)!=0)
-                saltarin = saltarin->sig;
-            if(!saltarin)
-                cout<<"\n No hay nodoss \n"<<endl;
-            else{
-                if(saltarin->sig)
+    //Aqui en la funcion eliminar si elimina el primer nodo ingresado y los de enmedio pero 
+    //no borra cuando cuando solo hay un nodo ni borrar el primero que se muestra en la lista de forma descendente
+    //no encontre ilumnacion en lo que mas o menos me explicaron F
+    nodo *borrar = pInicio, *aux;
+    if (!pInicio)
+    { 
+        cout<<"\n No se encontro el nodo \n"<<endl;
+        return false;
+    }else 
+    {                              
+        while ((borrar->sig->dato).nombre.compare(datoB.nombre)!=0) 
+            borrar = borrar->sig;
+            
+            if ((borrar->dato).nombre.compare(datoB.nombre)==0)
+            {                              
+                delete borrar;
+                return true;
+            }
+            else 
+            {
+                if (!borrar->sig)
+                { 
+                    cout<<"\n No se encontro el nodo \n"<<endl;
+                    return false;
+                }else 
                 {
-                    pInicio= pInicio->sig;
-                    delete saltarin;
+                    aux = borrar->sig; 
+                    borrar->sig = borrar->sig->sig;
+                    delete aux;
+                    return true;
                 }
             }
-   
-        }
-
-    } while (saltarin!=pInicio);
-
+        
+    }
 }
 
 

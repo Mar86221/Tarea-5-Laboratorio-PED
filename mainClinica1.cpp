@@ -1,5 +1,5 @@
 //Luis Mario Valencia 
-#include "Cliinica.hpp"
+#include "cli.hpp"
 //Usea lista circular simple porque me base en el de el ingeniero Cortez y nunca
 //se explico el doblemente enlazada
 
